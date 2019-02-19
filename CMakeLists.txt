@@ -4,11 +4,11 @@ project(nematode)
 set(CMAKE_CXX_STANDARD 14)
 
 set(LIB_SOURCES
-    src/GPSFix.cpp
-    src/GPSService.cpp
-    src/NMEACommand.cpp
-    src/NMEAParser.cpp
-    src/NumberConversion.cpp
+    src/GPSFix.cc
+    src/GPSService.cc
+    src/NMEACommand.cc
+    src/NMEAParser.cc
+    src/NumberConversion.cc
     )
 
 add_library(NemaTode SHARED ${LIB_SOURCES})
