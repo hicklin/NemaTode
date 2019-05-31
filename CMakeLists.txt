@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 project(nematode)
 
+## build settings
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 0)
+
+set(NEMATODE_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+
 set(CMAKE_CXX_STANDARD 14)
 
 set(LIB_SOURCES
@@ -12,9 +19,16 @@ set(LIB_SOURCES
     )
 
 add_library(NemaTode SHARED ${LIB_SOURCES})
-target_include_directories(NemaTode PRIVATE include/nmeaparse)
+include_directories(NemaTode PRIVATE include/nmeaparse)
 
-install(TARGETS NemaTode DESTINATION ${LIB_DIR})
+## set the shared library soname
+set_target_properties(NemaTode PROPERTIES
+        VERSION ${NEMATODE_VERSION}
+        SOVERSION ${VERSION_MAJOR})
+
+## install the shared library
+install(TARGETS NemaTode
+        LIBRARY DESTINATION lib)
 
 set(LIB_HEADERS
     include/nmeaparse/Event.h
@@ -26,5 +40,4 @@ set(LIB_HEADERS
     include/nmeaparse/NumberConversion.h
     )
 
-install(FILES ${LIB_HEADERS} DESTINATION ${INCLUDE_DIR})
-
+install(FILES ${LIB_HEADERS} DESTINATION include/nmeaparse)
